@@ -14,6 +14,9 @@ public class CompanyConfig {
     private static int IANUM = 1;
     private static int TCLNUM = 1;
 
+	@Autowired
+    private JdbcTemplate jdbcTemplate;
+	
     public static int getIANUM() {
         return IANUM;
     }
@@ -51,7 +54,7 @@ public class CompanyConfig {
     }
     
     @PostConstruct
-    public void initializeTCLNUMFromDatabase(JdbcTemplate jdbcTemplate) {
+    public void initializeTCLNUMFromDatabase() {
     	String selectQuery = "SELECT TCLNUM FROM COMPANYCONFIG";
         int initialTCLNUM = jdbcTemplate.queryForObject(selectQuery, Integer.class);
         TCLNUM = initialTCLNUM;
